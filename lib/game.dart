@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
+
 const Color winColor = Colors.red;
 const Color defColor = Colors.white;
 
-class Game extends StatefulWidget {
-  const Game({Key? key}) : super(key: key);
 
+class Game extends StatefulWidget {
   @override
   _GameState createState() => _GameState();
+
 }
 
 class _GameState extends State<Game> {
+
   String b1 = '';
   String b2 = '';
   String b3 = '';
@@ -20,13 +22,17 @@ class _GameState extends State<Game> {
   String b7 = '';
   String b8 = '';
   String b9 = '';
-
   int playerX = 0;
   int playerO = 0;
-
   int inPlay = 1;
-
+  int size = 0;
   bool gFinish = false;
+  _GameState();
+
+
+
+
+
 
   void whoWin() {
     if (b1 == b2 && b1 == b3 && b1.isNotEmpty) {
@@ -139,36 +145,53 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
+    final names = ModalRoute.of(context)!.settings.arguments.toString();
+    List<String> mylist = names.split(',');
+    String nameX = mylist[0].substring(1,mylist[0].length);
+    String nameO = mylist[1].substring(1,mylist[1].length -1);
     return Scaffold(backgroundColor: Color(0xffe4f96f),
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  const Text(
-                    'Игрок (X) : ',
-                    style: TextStyle(fontSize: 32),
-                  ),
-                  Text(
-                    '$playerX',
-                    style: TextStyle(fontSize: 32),
-                  ),
-                ],
+              Container(
+                padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  textDirection: TextDirection.ltr,
+                  children: [
+                    Text(
+
+                      '$nameX',
+                      style: TextStyle(fontSize: 32),
+                    ),
+                    Text(
+                      '$playerX',
+                      style: TextStyle(fontSize: 32),
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  const Text(
-                    'Игрок (O) : ',
-                    style: TextStyle(fontSize: 32),
-                  ),
-                  Text(
-                    '$playerO',
-                    style: TextStyle(fontSize: 32),
-                  ),
-                ],
+              Container(
+                padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child:Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  textDirection: TextDirection.ltr,
+                  children: [
+                    Text(
+                      '$nameO',
+                      style: TextStyle(fontSize: 32),
+                    ),
+                    Text(
+                      '$playerO',
+                      style: TextStyle(fontSize: 32),
+                    ),
+                  ],
+                ),
               ),
+
+
               Container(
                 height: MediaQuery.of(context).size.width,
                 width: MediaQuery.of(context).size.width,
@@ -498,6 +521,15 @@ class _GameState extends State<Game> {
                 'Удерживайте кнопку, чтобы сбросить все результаты',
                 style: TextStyle(fontSize: 14),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/');
+                },
+                child: const Text(
+                  'Выход в главное меню',
+                  style: TextStyle(fontSize: 28),
+                ),
+              )
             ],
           ),
         ),

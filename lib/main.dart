@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-
-import 'game.dart';
+import 'package:oandx/main_menu.dart';
+import 'package:oandx/select_name.dart';
+import 'package:oandx/game.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+   MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -18,7 +20,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const Game(),
+      initialRoute: '/',
+      routes:{
+        '/': (context) => main_menu(),
+        '/game': (context) => Game(),
+        '/select_name': (context) => Select_name(),
+      },
     );
   }
 }
